@@ -18,6 +18,10 @@ TGTD_OBJS += bs_rbd.o
 LIBS += -lrados -lrbd
 endif
 
+ifneq ($(SIMPLE_OSD),)
+LIBS += -ldl -lsimpleOSD_bs
+TGTD_OBJS += bs_simpleOSD.o 
+
 ifneq ($(shell test -e /usr/include/sys/eventfd.h && test -e /usr/include/libaio.h && echo 1),)
 CFLAGS += -DUSE_EVENTFD
 TGTD_OBJS += bs_aio.o
